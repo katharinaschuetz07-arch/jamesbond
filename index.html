@@ -1,237 +1,272 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="fa">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>007 Premium Edition - Version 0.07</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>James Bond Premium v1.2.7</title>
     <style>
-        :root {
-            --bond-gold: #c5a059;
-            --bond-black: #0a0a0a;
-            --bond-card-bg: #151515;
-            --bond-border: #444;
-            --sw-yellow: #FFE81F;
+        :root { 
+            --gold: #D4AF37; 
+            --emerald: #064e3b; 
+            --dark: #000; 
         }
-
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; user-select: none; }
         body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background-color: var(--bond-black);
-            color: #ddd;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
+            background: var(--dark);
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; margin: 0; font-family: 'Times New Roman', Times, serif;
+            color: var(--gold); overflow: hidden;
         }
-
-        header {
-            text-align: center;
-            width: 100%;
-            padding: 10px 0;
-            background: #000;
-            border-bottom: 1px solid var(--bond-gold);
+        .app-container {
+            width: 92vw; max-width: 380px; height: 88vh; max-height: 700px;
+            background: radial-gradient(circle at center, #062c1e 0%, #000 100%);
+            border: 4px solid var(--gold); border-radius: 50px;
+            display: flex; flex-direction: column; padding: 15px;
+            box-shadow: 0 0 50px rgba(212, 175, 55, 0.2);
         }
+        header { text-align: center; margin-bottom: 5px; }
+        .version-tag { font-size: 0.6rem; opacity: 0.6; letter-spacing: 2px; }
+        h1 { margin: 2px 0; font-size: 1.6rem; letter-spacing: 3px; }
+        .divider { width: 50%; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 8px auto; }
 
-        .main-title { font-size: 1.5em; font-weight: bold; letter-spacing: 4px; color: white; margin: 0; }
-        .sub-premium { font-size: 0.75em; color: var(--bond-gold); text-transform: uppercase; }
-        .sub-version { font-size: 0.6em; color: #555; }
-
-        .nav-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 110px);
-            grid-template-rows: repeat(3, 35px);
-            gap: 5px;
-            margin: 15px 0;
+        .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 8px; }
+        .premium-btn {
+            background: rgba(255,255,255,0.05); color: var(--gold); border: 1px solid rgba(212, 175, 55, 0.4);
+            padding: 10px 2px; font-size: 0.7rem; font-weight: bold; border-radius: 10px; cursor: pointer;
+            outline: none;
         }
+        .premium-btn:active { background: var(--gold); color: #000; }
 
+        .flashcard {
+            flex-grow: 1; margin: 5px 0;
+            background: linear-gradient(145deg, #0a1f18, #000);
+            border: 1.5px solid var(--gold); border-radius: 35px;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; position: relative; padding: 15px; cursor: pointer;
+        }
+        .cat-badge { position: absolute; top: 15px; left: 20px; font-size: 0.55rem; opacity: 0.5; text-transform: uppercase; }
+        #phrase-ar { font-size: 2.2rem; color: #fff; margin-bottom: 10px; font-weight: bold; direction: rtl; }
+        #phrase-ph { font-size: 0.9rem; opacity: 0.8; font-style: italic; color: var(--gold); }
+        #phrase-de { font-size: 1.1rem; color: #fff; opacity: 0.7; margin-top: 5px; }
+
+        .counter-box { position: absolute; bottom: 15px; right: 20px; font-size: 0.65rem; font-weight: bold; opacity: 0.5; }
+
+        .controls { display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 10px; margin-top: 10px; }
         .nav-btn {
-            background: #222;
-            border: 1px solid var(--bond-border);
-            color: var(--bond-gold);
-            font-size: 0.65em;
-            cursor: pointer;
-            text-transform: uppercase;
+            background: transparent; color: var(--gold); border: 1px solid var(--gold);
+            padding: 10px; border-radius: 18px; font-weight: bold; font-size: 0.7rem; cursor: pointer;
         }
+        .nav-btn.play { background: var(--gold); color: #000; }
 
-        .flash-card {
-            width: 90%;
-            max-width: 400px;
-            height: 300px;
-            background: var(--bond-card-bg);
-            border: 2px solid var(--bond-gold);
-            border-radius: 10px;
-            position: relative;
-            padding: 23px;
-            box-sizing: border-box;
-            cursor: pointer;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        .bottom-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
+        .footer-btn {
+            background: var(--gold); color: #000; padding: 10px;
+            border-radius: 20px; text-align: center; font-weight: 900; font-size: 0.75rem; cursor: pointer;
         }
-
-        .card-header-left { position: absolute; top: 10px; left: 15px; color: var(--bond-gold); font-weight: bold; font-size: 1.1em; }
-        .card-header-right { position: absolute; top: 10px; right: 15px; color: #777; font-size: 0.8em; }
-        .card-title { font-size: 1.3em; color: white; margin-top: 25px; text-align: center; border-bottom: 1px solid #333; padding-bottom: 8px; }
-        .card-desc { font-size: 0.85em; color: #bbb; line-height: 1.4; text-align: center; margin-top: 17px; overflow-y: auto; max-height: 180px; }
-        
-        .card-footer-left { position: absolute; bottom: 15px; left: 20px; font-size: 0.8em; color: var(--bond-gold); font-weight: bold; }
-        .card-counter { position: absolute; bottom: 15px; right: 20px; font-size: 0.8em; color: var(--bond-gold); font-weight: bold; }
-
-        .controls { display: flex; gap: 10px; margin: 20px 0; }
-        .ctrl-btn { background: transparent; border: 1px solid var(--bond-gold); color: var(--bond-gold); padding: 8px 15px; cursor: pointer; font-size: 0.8em; }
-
-        .phil-block-btn {
-            width: 340px;
-            padding: 11px;
-            background: transparent;
-            border: 2px solid var(--sw-yellow);
-            color: var(--sw-yellow);
-            font-weight: bold;
-            text-transform: uppercase;
-            cursor: pointer;
-        }
-
-        footer { margin-top: auto; padding: 10px; font-size: 0.7em; color: #444; }
+        footer { text-align: center; margin-top: 10px; font-size: 0.65rem; opacity: 0.5; }
     </style>
 </head>
 <body>
 
-<header>
-    <div class="main-title">JAMES BOND - 007</div>
-    <div class="sub-premium">Premium Edition</div>
-    <div class="sub-version">Version 0.07</div>
-</header>
+<div class="app-container">
+    <header>
+        <div class="version-tag">Premium Edition | V. 1.2.7</div>
+        <h1>James Bond 007</h1>
+        <div class="divider"></div>
+    </header>
 
-<div class="nav-grid">
-    <button class="nav-btn" onclick="setMode('start')">Start</button>
-    <button class="nav-btn" onclick="setMode('filme')">Filme</button>
-    <button class="nav-btn" onclick="setMode('hauptfiguren')">Hauptrollen</button>
-    <button class="nav-btn" onclick="setMode('nebenfiguren')">Nebenfiguren</button>
-    <button class="nav-btn" onclick="setMode('zitate')">Zitate</button>
-    <button class="nav-btn" onclick="setMode('schurken')">Schurken</button>
-    <button class="nav-btn" onclick="setMode('helden')">Helden</button>
-    <button class="nav-btn" onclick="setMode('schauspieler')">Schauspieler</button>
-    <button class="nav-btn" onclick="setMode('filmmusik')">Filmmusik</button>
+    <div class="menu-grid">
+        <button class="premium-btn" onclick="setCat('Alltag')">Alltag</button>
+        <button class="premium-btn" onclick="setCat('Basis')">Basis</button>
+        <button class="premium-btn" onclick="setCat('Reise')">Reise</button>
+        <button class="premium-btn" onclick="setCat('Hotel')">Hotel</button>
+        <button class="premium-btn" onclick="setCat('Gastro')">Gastro</button>
+        <button class="premium-btn" onclick="setCat('Amt')">Amt</button>
+    </div>
+
+    <div class="flashcard" onclick="next()">
+        <div class="cat-badge" id="cat-display">START</div>
+        <div id="phrase-ar">Im Auftrag ihrer Majestät</div>
+        <div id="phrase-ph">[Khosh amadeid]</div>
+        <div id="phrase-de">Willkommen</div>
+        <div class="counter-box" id="counter">1 / 25</div>
+    </div>
+
+    <div class="controls">
+        <button class="nav-btn" onclick="prev()">Zurück</button>
+        <button class="nav-btn play" onclick="speak()">Audio</button>
+        <button class="nav-btn" onclick="next()">Vor</button>
+    </div>
+
+    <div class="bottom-nav">
+        <div class="footer-btn" onclick="setCat('Home')">Home</div>
+        <div class="footer-btn" onclick="setCat('Vokabeln')">Vokabeln</div>
+    </div>
+
+    <footer>(c) 2026 James Bond Premium App</footer>
 </div>
-
-<div class="flash-card" onclick="cardClickAction()">
-    <div class="card-header-left" id="cardHLeft">007</div>
-    <div class="card-header-right" id="cardHRight">INFO</div>
-    <h2 class="card-title" id="cardTitle">Titel</h2>
-    <p class="card-desc" id="cardDesc">Inhalt...</p>
-    <div class="card-footer-left" id="cardFLeft"></div>
-    <div class="card-counter" id="cardCount">1 / 1</div>
-</div>
-
-<div class="controls">
-    <button class="ctrl-btn" onclick="changeCard(-1)">◀ Zurück</button>
-    <button class="ctrl-btn" onclick="speakCurrentCard()">🔊 Hören</button>
-    <button class="ctrl-btn" onclick="changeCard(1)">Vorwärts ▶</button>
-</div>
-
-<button class="phil-block-btn" onclick="setMode('philosophie')">007 Philosophie</button>
-
-<footer>(c) 2026 | Premium Edition Version 0.07</footer>
 
 <script>
-    const database = {
-        start: Array.from({length: 20}, (_, i) => ({ actor: "System", title: `Start Info ${i+1}`, desc: "Willkommen im 007-Archiv." })),
-        filme: [
-          
- { actor: "Sean Connery", year: 1962, title: "Dr. No", desc: "James Bond untersucht das Verschwinden eines britischen Agenten auf Jamaika und stößt auf die geheime Basis des mysteriösen Dr. No, der US-Raketenstarts stört. Erstmals treten hier die Organisation SPECTRE und die ikonischen Nebenfiguren wie Honey Ryder in Erscheinung." },
-
- { actor: "Sean Connery", year: 1963, title: "Liebesgrüße aus Moskau", desc: "In einem Kalten-Krieg-Szenario soll Bond eine Lektor-Dechiffriermaschine von einer sowjetischen Überläuferin in Istanbul stehlen. Es entbrennt eine gefährliche Jagd im Orient-Express, inszeniert von SPECTRE, um Bond als Rache für Dr. Nos Tod zu eliminieren." },
-
-
-            { actor: "Sean Connery", year: 1964, title: "Goldfinger", desc: "Schutz der Goldreserven." },
-            { actor: "Sean Connery", year: 1965, title: "Feuerball", desc: "Suche nach Atombomben." },
-            { actor: "David Niven", year: 1967, title: "Casino Royale (I)", desc: "Agenten-Satire." },
-            { actor: "Sean Connery", year: 1967, title: "Man lebt nur zweimal", desc: "Einsatz in Japan." },
-            { actor: "George Lazenby", year: 1969, title: "Im Geheimdienst Ihrer Majestät", desc: "Bond heiratet." },
-            { actor: "Sean Connery", year: 1971, title: "Diamantenfieber", desc: "Diamanten in Las Vegas." },
-            { actor: "Roger Moore", year: 1973, title: "Leben und sterben lassen", desc: "Voodoo-Kult." },
-            { actor: "Roger Moore", year: 1974, title: "Der Mann mit dem goldenen Colt", desc: "Duell mit Scaramanga." },
-            { actor: "Roger Moore", year: 1977, title: "Der Spion, der mich liebte", desc: "U-Boote und Stromberg." },
-            { actor: "Roger Moore", year: 1979, title: "Moonraker", desc: "Bond im Weltraum." },
-            { actor: "Roger Moore", year: 1981, title: "In tödlicher Mission", desc: "Griechenland Einsatz." },
-            { actor: "Roger Moore", year: 1983, title: "Octopussy", desc: "Zirkus und Atombombe." },
-            { actor: "Sean Connery", year: 1983, title: "Sag niemals nie (I)", desc: "Connerys Rückkehr." },
-            { actor: "Roger Moore", year: 1985, title: "Im Angesicht des Todes", desc: "Zorin in San Francisco." },
-            { actor: "Timothy Dalton", year: 1987, title: "Der Hauch des Todes", desc: "Scharfschützen." },
-            { actor: "Timothy Dalton", year: 1989, title: "Lizenz zum Töten", desc: "Privat-Rache." },
-            { actor: "Pierce Brosnan", year: 1995, title: "GoldenEye", desc: "Computerkrieg." },
-            { actor: "Pierce Brosnan", year: 1997, title: "Der Morgen stirbt nie", desc: "Medienkrieg." },
-            { actor: "Pierce Brosnan", year: 1999, title: "Die Welt ist nicht genug", desc: "Öl-Pipeline Sabotage." },
-            { actor: "Pierce Brosnan", year: 2002, title: "Stirb an einem anderen Tag", desc: "Diamanten und Sonnenwaffe." },
-            { actor: "Daniel Craig", year: 2006, title: "Casino Royale", desc: "Neuanfang." },
-            { actor: "Daniel Craig", year: 2008, title: "Ein Quantum Trost", desc: "Vergeltung." },
-            { actor: "Daniel Craig", year: 2012, title: "Skyfall", desc: "Angriff auf MI6." },
-            { actor: "Daniel Craig", year: 2015, title: "Spectre", desc: "Organisation Spectre." },
-            { actor: "Daniel Craig", year: 2021, title: "Keine Zeit zu sterben", desc: "Das Finale." }
+    const data = {
+        Home: [
+            {ar: "خوش آمدید", ph: "[Khosh amadeid]", de: "Willkommen"},
+            {ar: "صبح بخیر", ph: "[Sobh bakhair]", de: "Guten Morgen"},
+            {ar: "چطور هستین؟", ph: "[Chetor hastin?]", de: "Wie geht es Ihnen?"},
+            {ar: "خوب هستم", ph: "[Khob hastam]", de: "Mir geht es gut"},
+            {ar: "نام شما چیست؟", ph: "[Nam-e shoma chist?]", de: "Wie heißen Sie?"},
+            {ar: "تشکر", ph: "[Tashakor]", de: "Danke"},
+            {ar: "ببخشید", ph: "[Bebakhshid]", de: "Entschuldigung"},
+            {ar: "خدا حافظ", ph: "[Khuda hafiz]", de: "Auf Wiedersehen"},
+            {ar: "لطفاً", ph: "[Lotfan]", de: "Bitte"},
+            {ar: "بسیار خوب", ph: "[Besyar khob]", de: "Sehr gut"}
         ],
-        hauptfiguren: Array.from({length: 20}, (_, i) => ({ actor: "007", title: `Rolle ${i+1}`, desc: "Charakter-Info." })),
-
-
-        
-        nebenfiguren: Array.from({length: 20}, (_, i) => ({ actor: "MI6", title: `Nebenfigur ${i+1}`, desc: "Team-Info." })),
-
-        zitate: Array.from({length: 20}, (_, i) => ({ actor: "007", title: `Zitat ${i+1}`, desc: "Legendäre Worte." })),
-
-        schurken: Array.from({length: 20}, (_, i) => ({ actor: "Gegner", title: `Schurke ${i+1}`, desc: "Bösewicht-Info." })),
-
-        helden: Array.from({length: 20}, (_, i) => ({ actor: "Verbündete", title: `Held ${i+1}`, desc: "Partner-Info." })),
-
-        schauspieler: Array.from({length: 20}, (_, i) => ({ actor: "Cast", title: `Darsteller ${i+1}`, desc: "Schauspieler-Info." })),
-
-        filmmusik: Array.from({length: 20}, (_, i) => ({ actor: "Musik", title: `Soundtrack ${i+1}`, desc: "Musik-Info." })),
-
-        philosophie: Array.from({length: 20}, (_, i) => ({ actor: "007", title: `Philosophie ${i+1}`, desc: "Hintergrund-Info." }))
+        Alltag: [
+            {ar: "مانده نباشید", ph: "[Manda nabashid]", de: "Mögest du nicht müde sein"},
+            {ar: "زنده باشید", ph: "[Zenda bashid]", de: "Danke (Lebe lang)"},
+            {ar: "جانم", ph: "[Janam]", de: "Meine Seele (Liebe/r)"},
+            {ar: "چی گپ هاست؟", ph: "[Chi gap hast?]", de: "Was gibt's Neues?"},
+            {ar: "خیر باشد", ph: "[Khair bashad]", de: "Alles wird gut"},
+            {ar: "چای میخورین؟", ph: "[Chay mikhorin?]", de: "Trinken Sie Tee?"},
+            {ar: "بسیار مزه دار است", ph: "[Besyar maza dar ast]", de: "Es ist sehr lecker"},
+            {ar: "قدم تان روی چشم", ph: "[Qadam tan ruy-e chashm]", de: "Willkommen"},
+            {ar: "فهمیدین؟", ph: "[Fahmidin?]", de: "Verstanden?"},
+            {ar: "ان شاء الله", ph: "[Insha'Allah]", de: "So Gott will"}
+        ],
+        Basis: [
+            {ar: "بلی", ph: "[Bali]", de: "Ja"},
+            {ar: "نی", ph: "[Nay]", de: "Nein"},
+            {ar: "کجا؟", ph: "[Koja?]", de: "Wo?"},
+            {ar: "یک", ph: "[Yak]", de: "Eins"},
+            {ar: "دو", ph: "[Do]", de: "Zwei"},
+            {ar: "سه", ph: "[Se]", de: "Drei"},
+            {ar: "چهار", ph: "[Chahar]", de: "Vier"},
+            {ar: "پنج", ph: "[Panj]", de: "Fünf"},
+            {ar: "شش", ph: "[Shash]", de: "Sechs"},
+            {ar: "هفت", ph: "[Haft]", de: "Sieben"}
+        ],
+        Reise: [
+            {ar: "میدان هوایی", ph: "[Maydan-e hawayi]", de: "Flughafen"},
+            {ar: "تکسی", ph: "[Taksi]", de: "Taxi"},
+            {ar: "ایستگاه", ph: "[Istgah]", de: "Haltestelle"},
+            {ar: "تکیت", ph: "[Tikit]", de: "Fahrkarte"},
+            {ar: "راست", ph: "[Rast]", de: "Rechts"},
+            {ar: "چپ", ph: "[Chap]", de: "Links"},
+            {ar: "مستقیم", ph: "[Mustaqim]", de: "Geradeaus"},
+            {ar: "بکس", ph: "[Baks]", de: "Koffer"},
+            {ar: "موتر", ph: "[Motar]", de: "Auto"},
+            {ar: "طیاره", ph: "[Tayara]", de: "Flugzeug"}
+        ],
+        Hotel: [
+            {ar: "اطاق", ph: "[Otaq]", de: "Zimmer"},
+            {ar: "کلید", ph: "[Kalid]", de: "Schlüssel"},
+            {ar: "نان صبح", ph: "[Nan-e sobh]", de: "Frühstück"},
+            {ar: "تشناب", ph: "[Tashnab]", de: "Badezimmer"},
+            {ar: "تخت خواب", ph: "[Takht-e khwab]", de: "Bett"},
+            {ar: "آب گرم", ph: "[Ab-e garm]", de: "Warmes Wasser"},
+            {ar: "روی پاک", ph: "[Ruy pak]", de: "Handtuch"},
+            {ar: "صابون", ph: "[Sabun]", de: "Seife"},
+            {ar: "خروج", ph: "[Khurooj]", de: "Check-out"},
+            {ar: "پاک کنید", ph: "[Pak konid]", de: "Bitte reinigen"}
+        ],
+        Gastro: [
+            {ar: "نان", ph: "[Nan]", de: "Brot / Essen"},
+            {ar: "رستورانت", ph: "[Restorant]", de: "Restaurant"},
+            {ar: "آب", ph: "[Ab]", de: "Wasser"},
+            {ar: "چای سبز", ph: "[Chay-e sabz]", de: "Grüner Tee"},
+            {ar: "گوشت", ph: "[Gosht]", de: "Fleisch"},
+            {ar: "برنج", ph: "[Brinj]", de: "Reis"},
+            {ar: "سبزیجات", ph: "[Sabzijat]", de: "Gemüse"},
+            {ar: "بل لطفاً", ph: "[Bill lotfan]", de: "Die Rechnung bitte"},
+            {ar: "بدون بوره", ph: "[Bedun-e bura]", de: "Ohne Zucker"},
+            {ar: "قاشق", ph: "[Qashoq]", de: "Löffel"}
+        ],
+        Amt: [
+            {ar: "سفارت", ph: "[Sefarat]", de: "Botschaft"},
+            {ar: "پولیس", ph: "[Polis]", de: "Polizei"},
+            {ar: "شفاخانه", ph: "[Shafakhana]", de: "Krankenhaus"},
+            {ar: "داکتر", ph: "[Daktar]", de: "Arzt"},
+            {ar: "امضا", ph: "[Emza]", de: "Unterschrift"},
+            {ar: "کاغذ", ph: "[Kaghaz]", de: "Papier"},
+            {ar: "کمک", ph: "[Komak]", de: "Hilfe"},
+            {ar: "ویزه", ph: "[Viza]", de: "Visum"},
+            {ar: "پاسپورت", ph: "[Pasport]", de: "Reisepass"},
+            {ar: "آدرس", ph: "[Adres]", de: "Adresse"}
+        ],
+        Vokabeln: [
+            {ar: "کتاب", ph: "[Ketab]", de: "Buch"},
+            {ar: "خانه", ph: "[Khana]", de: "Haus"},
+            {ar: "آسمان", ph: "[Asman]", de: "Himmel"},
+            {ar: "دوست", ph: "[Dust]", de: "Freund"},
+            {ar: "صلح", ph: "[Solh]", de: "Frieden"},
+            {ar: "آزادی", ph: "[Azadi]", de: "Freiheit"},
+            {ar: "مادر", ph: "[Madar]", de: "Mutter"},
+            {ar: "پدر", ph: "[Padar]", de: "Vater"},
+            {ar: "برادر", ph: "[Baradar]", de: "Bruder"},
+            {ar: "خواهر", ph: "[Khwahar]", de: "Schwester"}
+        ]
     };
 
-    let currentMode = 'start';
-    let currentIndex = 0;
+    // Daten auf 25 Items auffüllen
+    Object.keys(data).forEach(cat => {
+        let baseItems = [...data[cat]];
+        while(data[cat].length < 25) {
+            data[cat].push({...baseItems[data[cat].length % baseItems.length]});
+        }
+    });
 
-    function setMode(mode) {
-        currentMode = mode;
-        currentIndex = 0;
-        renderCard();
-        speakCurrentCard();
+    let current = 'Home';
+    let idx = 0;
+    let autoSpeakActive = false;
+
+    function setCat(c) {
+        if(!data[c]) return;
+        current = c; 
+        idx = 0; 
+        autoSpeakActive = true; 
+        updateUI();
     }
 
-    function renderCard() {
-        const dataSet = database[currentMode];
-        const item = dataSet[currentIndex];
+    function updateUI() {
+        const item = data[current][idx];
+        document.getElementById('cat-display').innerText = current;
+        document.getElementById('phrase-ar').innerText = item.ar;
+        document.getElementById('phrase-ph').innerText = item.ph;
+        document.getElementById('phrase-de').innerText = item.de;
+        document.getElementById('counter').innerText = (idx + 1) + " / 25";
         
-        document.getElementById('cardHLeft').innerText = "007"; // Überall 007 oben links
-        document.getElementById('cardHRight').innerText = item.actor;
-        document.getElementById('cardTitle').innerText = item.title + (item.year ? ` (${item.year})` : "");
-        document.getElementById('cardDesc').innerText = item.desc;
-        
-        // Unten links: Nummerierung nur bei Filmen
-        document.getElementById('cardFLeft').innerText = currentMode === 'filme' ? `Film ${currentIndex + 1}` : "";
-        // Rechts: Zählung
-        document.getElementById('cardCount').innerText = `${currentIndex + 1} von ${dataSet.length}`;
+        if(autoSpeakActive) {
+            speak();
+        }
     }
 
-    function cardClickAction() { changeCard(1); }
-
-    function changeCard(dir) {
-        const dataSet = database[currentMode];
-        currentIndex += dir;
-        if (currentIndex < 0) currentIndex = dataSet.length - 1;
-        if (currentIndex >= dataSet.length) currentIndex = 0;
-        renderCard();
-        speakCurrentCard();
+    function next() { 
+        autoSpeakActive = true;
+        idx = (idx + 1) % 25; 
+        updateUI(); 
     }
 
-    function speakCurrentCard() {
-        const item = database[currentMode][currentIndex];
-        const text = `${item.title}. ${item.desc}`;
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'de-DE';
-        speechSynthesis.cancel();
-        speechSynthesis.speak(utterance);
+    function prev() { 
+        autoSpeakActive = true;
+        idx = (idx - 1 + 25) % 25; 
+        updateUI(); 
     }
 
-    renderCard();
+    function speak() {
+        if (!window.speechSynthesis) return;
+        window.speechSynthesis.cancel();
+        const text = document.getElementById('phrase-ar').innerText;
+        const msg = new SpeechSynthesisUtterance(text);
+        msg.lang = 'fa-IR'; 
+        msg.rate = 0.8;
+        window.speechSynthesis.speak(msg);
+    }
+
+    window.onload = () => {
+        updateUI();
+    };
 </script>
+
 </body>
 </html>
+        
+
