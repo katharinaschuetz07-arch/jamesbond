@@ -277,13 +277,13 @@
         document.getElementById('phrase-de').innerText = item.de;
         document.getElementById('phrase-ar').innerText = item.ar;
         document.getElementById('phrase-ph').innerText = item.ph;
-        document.getElementById('counter').innerText = (idx + 1) + " / 25";
+        document.getElementById('counter').innerText = (idx + 1) + " / 50";
         
         if(autoSpeakActive) speak();
     }
 
-    function next() { idx = (idx + 1) % 25; updateUI(); }
-    function prev() { idx = (idx - 1 + 25) % 25; updateUI(); }
+    function next() { idx = (idx + 1) % 50; updateUI(); }
+    function prev() { idx = (idx - 1 + 50) % 50; updateUI(); }
 
     function speak() {
         if (!window.speechSynthesis) return;
