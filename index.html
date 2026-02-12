@@ -89,7 +89,7 @@
         <div id="phrase-de">Willkommen</div>
         <div id="phrase-ar">James Bond - 007</div>
         <div id="phrase-ph">Wählen Sie einen Darsteller oder Start</div>
-        <div class="counter-box" id="counter">1 / 25</div>
+        <div class="counter-box" id="counter">1 / 50</div>
     </div>
 
     <div class="controls">
@@ -180,10 +180,10 @@
         ]
     };
 
-    // Daten auffüllen auf 25 pro Kategorie
+    // Daten auffüllen auf 50 pro Kategorie
     Object.keys(data).forEach(cat => {
         let baseItems = [...data[cat]];
-        while(data[cat].length < 25) {
+        while(data[cat].length < 50) {
             data[cat].push({...baseItems[data[cat].length % baseItems.length]});
         }
     });
