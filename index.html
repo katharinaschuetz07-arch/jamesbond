@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>James Bond Premium v1.2.7</title>
+    <title>James Bond Premium v1.1.7</title>
     <style>
         :root { 
             --gold: #D4AF37; 
@@ -44,10 +44,10 @@
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             text-align: center; position: relative; padding: 15px; cursor: pointer;
         }
-        .cat-badge { position: absolute; top: 15px; left: 20px; font-size: 0.55rem; opacity: 0.5; text-transform: uppercase; }
-        #phrase-ar { font-size: 2.2rem; color: #fff; margin-bottom: 10px; font-weight: bold; direction: rtl; }
-        #phrase-ph { font-size: 0.9rem; opacity: 0.8; font-style: italic; color: var(--gold); }
-        #phrase-de { font-size: 1.1rem; color: #fff; opacity: 0.7; margin-top: 5px; }
+        .cat-badge { position: absolute; top: 15px; left: 20px; font-size: 0.55rem; opacity: 0.7; text-transform: uppercase; font-weight: bold; border-bottom: 1px solid var(--gold); }
+        #phrase-de { font-size: 1.4rem; color: #fff; margin-bottom: 10px; font-weight: bold; }
+        #phrase-ar { font-size: 1.1rem; color: var(--gold); opacity: 0.9; }
+        #phrase-ph { font-size: 0.8rem; opacity: 0.6; font-style: italic; margin-top: 5px; }
 
         .counter-box { position: absolute; bottom: 15px; right: 20px; font-size: 0.65rem; font-weight: bold; opacity: 0.5; }
 
@@ -70,25 +70,25 @@
 
 <div class="app-container">
     <header>
-        <div class="version-tag">Premium Edition | V. 1.2.7</div>
+        <div class="version-tag">Premium Edition | Version 1.1.7</div>
         <h1>James Bond 007</h1>
         <div class="divider"></div>
     </header>
 
     <div class="menu-grid">
-        <button class="premium-btn" onclick="setCat('Alltag')">Georgfe Lazenby</button>
-        <button class="premium-btn" onclick="setCat('Basis')">Roger Moore</button>
-        <button class="premium-btn" onclick="setCat('Reise')">Timothy Dalton </button>
-        <button class="premium-btn" onclick="setCat('Hotel')">Pierce Brocnan</button>
-        <button class="premium-btn" onclick="setCat('Gastro')">Sean Connery</button>
-        <button class="premium-btn" onclick="setCat('Amt')">Daniel Craig</button>
+        <button class="premium-btn" onclick="setCat('Lazenby')">George Lazenby</button>
+        <button class="premium-btn" onclick="setCat('Moore')">Roger Moore</button>
+        <button class="premium-btn" onclick="setCat('Dalton')">Timothy Dalton</button>
+        <button class="premium-btn" onclick="setCat('Brosnan')">Pierce Brosnan</button>
+        <button class="premium-btn" onclick="setCat('Connery')">Sean Connery</button>
+        <button class="premium-btn" onclick="setCat('Craig')">Daniel Craig</button>
     </div>
 
     <div class="flashcard" onclick="next()">
         <div class="cat-badge" id="cat-display">START</div>
-        <div id="phrase-ar">Im Auftrag ihrer Majestät</div>
-        <div id="phrase-ph">[Khosh amadeid]</div>
         <div id="phrase-de">Willkommen</div>
+        <div id="phrase-ar">James Bond - 007</div>
+        <div id="phrase-ph">Wählen Sie einen Darsteller oder Start</div>
         <div class="counter-box" id="counter">1 / 25</div>
     </div>
 
@@ -100,7 +100,7 @@
 
     <div class="bottom-nav">
         <div class="footer-btn" onclick="setCat('Home')">Start</div>
-        <div class="footer-btn" onclick="setCat('Vokabeln')">Filme</div>
+        <div class="footer-btn" onclick="setCat('Filme')">Filme</div>
     </div>
 
     <footer>(c) 2026 James Bond Premium App</footer>
@@ -109,104 +109,56 @@
 <script>
     const data = {
         Home: [
-            {ar: "007", ph: "Im Auftrag ihrerv Majestät", de: "James Bond - 007"},
-            {ar: "صبح بخیر", ph: "[Sobh bakhair]", de: "Guten Morgen"},
-            {ar: "چطور هستین؟", ph: "[Chetor hastin?]", de: "Wie geht es Ihnen?"},
-            {ar: "خوب هستم", ph: "[Khob hastam]", de: "Mir geht es gut"},
-            {ar: "نام شما چیست؟", ph: "[Nam-e shoma chist?]", de: "Wie heißen Sie?"},
-            {ar: "تشکر", ph: "[Tashakor]", de: "Danke"},
-            {ar: "ببخشید", ph: "[Bebakhshid]", de: "Entschuldigung"},
-            {ar: "خدا حافظ", ph: "[Khuda hafiz]", de: "Auf Wiedersehen"},
-            {ar: "لطفاً", ph: "[Lotfan]", de: "Bitte"},
-            {ar: "بسیار خوب", ph: "[Besyar khob]", de: "Sehr gut"}
+            {de: "James Bond 007", ar: "Ian Fleming", ph: "Erfinder & Buchautor (1908-1964)", actor: "Information"},
+            {de: "Die Musik", ar: "Monty Norman", ph: "Komponist des 007-Themas", actor: "Information"},
+            {de: "Das Drehbuch", ar: "Richard Maibaum", ph: "Schrieb 13 Bond-Filme", actor: "Information"},
+            {de: "Die Regie", ar: "Terence Young", ph: "Regisseur von Dr. No & Feuerball", actor: "Information"}
         ],
-        Alltag: [
-            {ar: "مانده نباشید", ph: "[Manda nabashid]", de: "Mögest du nicht müde sein"},
-            {ar: "زنده باشید", ph: "[Zenda bashid]", de: "Danke (Lebe lang)"},
-            {ar: "جانم", ph: "[Janam]", de: "Meine Seele (Liebe/r)"},
-            {ar: "چی گپ هاست؟", ph: "[Chi gap hast?]", de: "Was gibt's Neues?"},
-            {ar: "خیر باشد", ph: "[Khair bashad]", de: "Alles wird gut"},
-            {ar: "چای میخورین؟", ph: "[Chay mikhorin?]", de: "Trinken Sie Tee?"},
-            {ar: "بسیار مزه دار است", ph: "[Besyar maza dar ast]", de: "Es ist sehr lecker"},
-            {ar: "قدم تان روی چشم", ph: "[Qadam tan ruy-e chashm]", de: "Willkommen"},
-            {ar: "فهمیدین؟", ph: "[Fahmidin?]", de: "Verstanden?"},
-            {ar: "ان شاء الله", ph: "[Insha'Allah]", de: "So Gott will"}
+        Connery: [
+            {de: "Sean Connery", ar: "1930 - 2020", ph: "Geboren in Edinburgh, Schottland", actor: "Sean Connery"},
+            {de: "Dr. No", ar: "Dr. No", ph: "Erster Bond-Film (1962)", actor: "Sean Connery"},
+            {de: "Feuerball", ar: "Thunderball", ph: "Großer Unterwasser-Erfolg (1965)", actor: "Sean Connery"},
+            {de: "Diamantenfieber", ar: "Diamonds Are Forever", ph: "Letzter Eon-Film (1971)", actor: "Sean Connery"}
         ],
-        Basis: [
-            {ar: "بلی", ph: "[Bali]", de: "Ja"},
-            {ar: "نی", ph: "[Nay]", de: "Nein"},
-            {ar: "کجا؟", ph: "[Koja?]", de: "Wo?"},
-            {ar: "یک", ph: "[Yak]", de: "Eins"},
-            {ar: "دو", ph: "[Do]", de: "Zwei"},
-            {ar: "سه", ph: "[Se]", de: "Drei"},
-            {ar: "چهار", ph: "[Chahar]", de: "Vier"},
-            {ar: "پنج", ph: "[Panj]", de: "Fünf"},
-            {ar: "شش", ph: "[Shash]", de: "Sechs"},
-            {ar: "هفت", ph: "[Haft]", de: "Sieben"}
+        Lazenby: [
+            {de: "George Lazenby", ar: "Geboren 1939", ph: "Australisches Model & Schauspieler", actor: "George Lazenby"},
+            {de: "Im Geheimdienst Ihrer Majestät", ar: "On Her Majesty's Secret Service", ph: "Einziger Einsatz (1969)", actor: "George Lazenby"},
+            {de: "Herausforderung", ar: "Bond-Nachfolge", ph: "Ersetzte Sean Connery", actor: "George Lazenby"},
+            {de: "Privat", ar: "Stunt-Spezialist", ph: "Machte viele Stunts selbst", actor: "George Lazenby"}
         ],
-        Reise: [
-            {ar: "میدان هوایی", ph: "[Maydan-e hawayi]", de: "Flughafen"},
-            {ar: "تکسی", ph: "[Taksi]", de: "Taxi"},
-            {ar: "ایستگاه", ph: "[Istgah]", de: "Haltestelle"},
-            {ar: "تکیت", ph: "[Tikit]", de: "Fahrkarte"},
-            {ar: "راست", ph: "[Rast]", de: "Rechts"},
-            {ar: "چپ", ph: "[Chap]", de: "Links"},
-            {ar: "مستقیم", ph: "[Mustaqim]", de: "Geradeaus"},
-            {ar: "بکس", ph: "[Baks]", de: "Koffer"},
-            {ar: "موتر", ph: "[Motar]", de: "Auto"},
-            {ar: "طیاره", ph: "[Tayara]", de: "Flugzeug"}
+        Moore: [
+            {de: "Roger Moore", ar: "1927 - 2017", ph: "Geboren in London, England", actor: "Roger Moore"},
+            {de: "Leben und sterben lassen", ar: "Live and Let Die", ph: "Debüt (1973)", actor: "Roger Moore"},
+            {de: "Moonraker", ar: "Moonraker", ph: "Bond im Weltraum (1979)", actor: "Roger Moore"},
+            {de: "In tödlicher Mission", ar: "For Your Eyes Only", ph: "Klassischer Thriller (1981)", actor: "Roger Moore"}
         ],
-        Hotel: [
-            {ar: "اطاق", ph: "[Otaq]", de: "Zimmer"},
-            {ar: "کلید", ph: "[Kalid]", de: "Schlüssel"},
-            {ar: "نان صبح", ph: "[Nan-e sobh]", de: "Frühstück"},
-            {ar: "تشناب", ph: "[Tashnab]", de: "Badezimmer"},
-            {ar: "تخت خواب", ph: "[Takht-e khwab]", de: "Bett"},
-            {ar: "آب گرم", ph: "[Ab-e garm]", de: "Warmes Wasser"},
-            {ar: "روی پاک", ph: "[Ruy pak]", de: "Handtuch"},
-            {ar: "صابون", ph: "[Sabun]", de: "Seife"},
-            {ar: "خروج", ph: "[Khurooj]", de: "Check-out"},
-            {ar: "پاک کنید", ph: "[Pak konid]", de: "Bitte reinigen"}
+        Dalton: [
+            {de: "Timothy Dalton", ar: "Geboren 1946", ph: "Geboren in Colwyn Bay, Wales", actor: "Timothy Dalton"},
+            {de: "Der Hauch des Todes", ar: "The Living Daylights", ph: "Debüt (1987)", actor: "Timothy Dalton"},
+            {de: "Lizenz zum Töten", ar: "Licence to Kill", ph: "Erster Film ab 16 (1989)", actor: "Timothy Dalton"},
+            {de: "Stil", ar: "Ian Fleming Nah", ph: "Spielte Bond sehr ernsthaft", actor: "Timothy Dalton"}
         ],
-        Gastro: [
-            {ar: "نان", ph: "[Nan]", de: "Brot / Essen"},
-            {ar: "رستورانت", ph: "[Restorant]", de: "Restaurant"},
-            {ar: "آب", ph: "[Ab]", de: "Wasser"},
-            {ar: "چای سبز", ph: "[Chay-e sabz]", de: "Grüner Tee"},
-            {ar: "گوشت", ph: "[Gosht]", de: "Fleisch"},
-            {ar: "برنج", ph: "[Brinj]", de: "Reis"},
-            {ar: "سبزیجات", ph: "[Sabzijat]", de: "Gemüse"},
-            {ar: "بل لطفاً", ph: "[Bill lotfan]", de: "Die Rechnung bitte"},
-            {ar: "بدون بوره", ph: "[Bedun-e bura]", de: "Ohne Zucker"},
-            {ar: "قاشق", ph: "[Qashoq]", de: "Löffel"}
+        Brosnan: [
+            {de: "Pierce Brosnan", ar: "Geboren 1953", ph: "Geboren in Drogheda, Irland", actor: "Pierce Brosnan"},
+            {de: "GoldenEye", ar: "GoldenEye", ph: "Neustart nach 6 Jahren (1995)", actor: "Pierce Brosnan"},
+            {de: "Der Morgen stirbt nie", ar: "Tomorrow Never Dies", ph: "Gegen Medienmogul (1997)", actor: "Pierce Brosnan"},
+            {de: "Die Welt ist nicht genug", ar: "The World Is Not Enough", ph: "Gegen Elektra King (1999)", actor: "Pierce Brosnan"}
         ],
-        Amt: [
-            {ar: "سفارت", ph: "[Sefarat]", de: "Botschaft"},
-            {ar: "پولیس", ph: "[Polis]", de: "Polizei"},
-            {ar: "شفاخانه", ph: "[Shafakhana]", de: "Krankenhaus"},
-            {ar: "داکتر", ph: "[Daktar]", de: "Arzt"},
-            {ar: "امضا", ph: "[Emza]", de: "Unterschrift"},
-            {ar: "کاغذ", ph: "[Kaghaz]", de: "Papier"},
-            {ar: "کمک", ph: "[Komak]", de: "Hilfe"},
-            {ar: "ویزه", ph: "[Viza]", de: "Visum"},
-            {ar: "پاسپورت", ph: "[Pasport]", de: "Reisepass"},
-            {ar: "آدرس", ph: "[Adres]", de: "Adresse"}
+        Craig: [
+            {de: "Daniel Craig", ar: "Geboren 1968", ph: "Geboren in Chester, England", actor: "Daniel Craig"},
+            {de: "Casino Royale", ar: "Casino Royale", ph: "Radikaler Neuanfang (2006)", actor: "Daniel Craig"},
+            {de: "Skyfall", ar: "Skyfall", ph: "Erfolgreichster Bond-Film (2012)", actor: "Daniel Craig"},
+            {de: "Keine Zeit zu sterben", ar: "No Time to Die", ph: "Abschluss der Ära (2021)", actor: "Daniel Craig"}
         ],
-        Vokabeln: [
-            {ar: "کتاب", ph: "[Ketab]", de: "Buch"},
-            {ar: "خانه", ph: "[Khana]", de: "Haus"},
-            {ar: "آسمان", ph: "[Asman]", de: "Himmel"},
-            {ar: "دوست", ph: "[Dust]", de: "Freund"},
-            {ar: "صلح", ph: "[Solh]", de: "Frieden"},
-            {ar: "آزادی", ph: "[Azadi]", de: "Freiheit"},
-            {ar: "مادر", ph: "[Madar]", de: "Mutter"},
-            {ar: "پدر", ph: "[Padar]", de: "Vater"},
-            {ar: "برادر", ph: "[Baradar]", de: "Bruder"},
-            {ar: "خواهر", ph: "[Khwahar]", de: "Schwester"}
+        Filme: [
+            {de: "Dr. No (1962)", ar: "Sean Connery", ph: "Regie: Terence Young", actor: "Chronik"},
+            {de: "Goldfinger (1964)", ar: "Sean Connery", ph: "Regie: Guy Hamilton", actor: "Chronik"},
+            {de: "GoldenEye (1995)", ar: "Pierce Brosnan", ph: "Regie: Martin Campbell", actor: "Chronik"},
+            {de: "Skyfall (2012)", ar: "Daniel Craig", ph: "Regie: Sam Mendes", actor: "Chronik"}
         ]
     };
 
-    // Daten auf 25 Items auffüllen
+    // Daten auffüllen auf 25 pro Kategorie
     Object.keys(data).forEach(cat => {
         let baseItems = [...data[cat]];
         while(data[cat].length < 25) {
@@ -216,57 +168,47 @@
 
     let current = 'Home';
     let idx = 0;
-    let autoSpeakActive = false;
+    let autoSpeakActive = true; 
 
     function setCat(c) {
         if(!data[c]) return;
         current = c; 
         idx = 0; 
-        autoSpeakActive = true; 
         updateUI();
     }
 
     function updateUI() {
         const item = data[current][idx];
-        document.getElementById('cat-display').innerText = current;
+        document.getElementById('cat-display').innerText = item.actor || current;
+        document.getElementById('phrase-de').innerText = item.de;
         document.getElementById('phrase-ar').innerText = item.ar;
         document.getElementById('phrase-ph').innerText = item.ph;
-        document.getElementById('phrase-de').innerText = item.de;
         document.getElementById('counter').innerText = (idx + 1) + " / 25";
         
-        if(autoSpeakActive) {
-            speak();
-        }
+        if(autoSpeakActive) speak();
     }
 
-    function next() { 
-        autoSpeakActive = true;
-        idx = (idx + 1) % 25; 
-        updateUI(); 
-    }
-
-    function prev() { 
-        autoSpeakActive = true;
-        idx = (idx - 1 + 25) % 25; 
-        updateUI(); 
-    }
+    function next() { idx = (idx + 1) % 25; updateUI(); }
+    function prev() { idx = (idx - 1 + 25) % 25; updateUI(); }
 
     function speak() {
         if (!window.speechSynthesis) return;
         window.speechSynthesis.cancel();
-        const text = document.getElementById('phrase-ar').innerText;
-        const msg = new SpeechSynthesisUtterance(text);
-        msg.lang = 'fa-IR'; 
-        msg.rate = 0.8;
-        window.speechSynthesis.speak(msg);
+        const item = data[current][idx];
+        
+        const msgDe = new SpeechSynthesisUtterance(item.de);
+        msgDe.lang = 'de-DE';
+        msgDe.rate = 0.9;
+        
+        const msgEn = new SpeechSynthesisUtterance(item.ar);
+        msgEn.lang = 'en-GB';
+        msgEn.rate = 0.8;
+
+        window.speechSynthesis.speak(msgDe);
+        window.speechSynthesis.speak(msgEn);
     }
 
-    window.onload = () => {
-        updateUI();
-    };
+    window.onload = updateUI;
 </script>
-
 </body>
 </html>
-        
-
